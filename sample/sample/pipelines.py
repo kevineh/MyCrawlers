@@ -12,12 +12,6 @@ class SamplePipeline(object):
                                           db='mydata', charset="utf8")
         self.cursor = self.connection.cursor()
 
-    def insert(self, query, params):
-        try:
-            self.cursor.execute(query, params)
-            self.connection.commit()
-        except Exception as ex:
-            self.connection.rollback()
 
     def close_spider(self, spider):
         self.connection.close()
@@ -28,5 +22,10 @@ class SamplePipeline(object):
         params = (
             item['topic'], item['uid'], item['reply_date'], item['content']
         )
-        spider.insert(query, params)
+        try:
+            self.cursor.execute(query, params)
+            self.connection.commit()
+        except Exception as ex:
+            self.connection.rollback()
+
         return item
