@@ -1,7 +1,6 @@
 import scrapy
 from scrapy import Selector
 from scrapy import Request
-import MySQLdb
 from sample.items import SampleItem
 
 
@@ -13,32 +12,8 @@ class NgaSpider(scrapy.Spider):
     start_urls = "http://forum.yorkbbs.ca/property/"
 
     custom_settings = {
-        'CLOSESPIDER_PAGECOUNT': 1000
+        'CLOSESPIDER_PAGECOUNT': 100
     }
-    # 定义数据库操作
-    # 放在Spider里面可以避免反复连接数据库
-    # host = 192.168.0.10
-    # port = 32861
-    # user = 'root'
-    # password = 'wk10142208'
-    # db = 'mydata'
-
-    def __init__(self):
-        scrapy.Spider.__init__(self)
-        self.connection = MySQLdb.connect(host='192.168.0.10', user='root', password='wk10142208', port=32861,
-                                          db='mydata', charset="utf8")
-        self.cursor = self.connection.cursor()
-
-    def insert(self, query, params):
-        try:
-            self.cursor.execute(query, params)
-            self.connection.commit()
-        except Exception as ex:
-            self.connection.rollback()
-
-    def __del__(self):
-        self.connection.close()
-
 
     # 爬虫的入口，可以在此进行一些初始化工作，比如从某个文件或者数据库读入起始url
     def start_requests(self):
