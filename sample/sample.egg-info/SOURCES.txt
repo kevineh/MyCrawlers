@@ -1,0 +1,14 @@
+setup.py
+sample/Main.py
+sample/__init__.py
+sample/items.py
+sample/middlewares.py
+sample/pipelines.py
+sample/settings.py
+sample.egg-info/PKG-INFO
+sample.egg-info/SOURCES.txt
+sample.egg-info/dependency_links.txt
+sample.egg-info/entry_points.txt
+sample.egg-info/top_level.txt
+sample/spiders/__init__.py
+sample/spiders/sample.py
